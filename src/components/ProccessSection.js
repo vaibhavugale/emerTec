@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Spices from "../assets/spices-7925125_640.jpg"
+import gsap from 'gsap';
 
 const ProccessSection = ({data,index,length}) => {
-
+    const processSectionRef = useRef(null);
+    // useEffect(() => {
+    //     const tl = gsap.timeline();
+    
+    //     // Sequential animations
+    //     tl.fromTo(processSectionRef.current,  
+    //         {  opacity: 0 },
+    //         {  opacity: 1, duration: 2 })
+    
+    //   }, []);
     
   return (
-    <div className=' flex text-black relative   w-full  gap-7 leading-loose'>
+    <div ref={processSectionRef} className=' border-b border-slate-500/20 flex text-black relative   w-full  gap-7 leading-loose'>
         <img src={Spices} className='  z-10  rounded-full w-[70px] h-[70px]' />
        <div>
         <p>Month of Harvest</p>

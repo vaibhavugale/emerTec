@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import spices from "../assets/spices-7925125_640.jpg"
 import ProccessSection from './ProccessSection';
-import {process} from "../data"
+import {process} from "../data";
+import gsap from 'gsap';
 
 const OrderTraking = () => {
     const uses = [  
@@ -9,17 +10,32 @@ const OrderTraking = () => {
         "Stermeal , Neem Cake Powder."   
     ]
    
+   const pageStack = useRef(null); 
+ 
+   useEffect(() => {
+    const tl = gsap.timeline();
+
+    // Sequential animations
+    tl.fromTo(pageStack.current,
+        { y: '100vh', opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5 }
+    )
+
+
+  }, []);
+
+
         
   return (
     <div className="h-[100vh] flex  overflow-hidden  flex-col  bg-custom-image relative  xs:w-[30vw] md:w-[30vw] w-[100vw] bg-white overflow-y-scroll  ">
     {/* Image */}
     <div className=" w-full h-[20vh]"></div>
 
-     <div className=" w-full h-[70vh] ">
+     <div ref={pageStack} className=" w-full h-[70vh] ">
     {/* section 01 :Name of spices  */}
-    <div className=" bg-black/50 rounded-t-3xl  p-5 font-semibold   ">
+    <div className=" bg-black/50 rounded-t-3xl flex justify-between  p-5 font-semibold   ">
       <p className=" text-2xl">Black Pepper <br/> Karimunda</p>
-      <div></div>
+      <div>Logo</div>
     </div>
 
 
