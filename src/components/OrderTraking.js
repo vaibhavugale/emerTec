@@ -11,16 +11,33 @@ const OrderTraking = () => {
     ]
    
    const pageStack = useRef(null); 
+   const processRefs = useRef([]);
+
+   processRefs.current = [];
+
+   const addToRefs = (el) => {
+       if (el && !processRefs.current.includes(el)) {
+           processRefs.current.push(el);
+       }
+   };
+
  
    useEffect(() => {
     const tl = gsap.timeline();
 
     // Sequential animations
     tl.fromTo(pageStack.current,
-        { y: '100vh', opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5 }
+        { y: '100vh', opacity: 0,duration: 1 },
+        { y: 0, opacity: 1, duration: 1 }
     )
+    processRefs?.current?.forEach((el,index) => {
 
+        tl.fromTo(el,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8 },
+            `-=${0.5 - (index * 0.1)}`
+        );
+    });
 
   }, []);
 
@@ -65,7 +82,7 @@ const OrderTraking = () => {
     <div className="bg-[#FFFFFF] gap-8 px-8 py-8 h-[60vh] flex flex-col items-center overflow-y-scroll border-white border-t rounded-t-3xl  -mt-4">
 
          {
-            process?.map((data,index)=>  <ProccessSection data={data} index={index}  length={process.length} /> )
+            process?.map((data,index)=>  <ProccessSection ref={addToRefs} data={data} index={index}  length={process.length} /> )
          }
     </div>
 
